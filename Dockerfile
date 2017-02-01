@@ -1,5 +1,6 @@
 FROM python:3-onbuild
 COPY data/db.dump.json ./dump.json
+RUN rm ./sources/db.sqlite3
 RUN python ./sources/manage.py makemigrations
 RUN python ./sources/manage.py migrate
 RUN python ./sources/manage.py loaddata /usr/src/app/dump.json
