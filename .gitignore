@@ -6,5 +6,6 @@ data/
 *.swa
 pip-selfcheck.json
 db.sqlite3
-*/__pycache__/
-*/migrations/
+__pycache__/
+migrations/
+createsuperuser.sh
