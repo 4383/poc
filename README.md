@@ -21,7 +21,7 @@ $ python sources/manage.py migrate
 $ python sources/manage.py loaddata data/db.dump.json
 $ python sources/manage.py runserver
 $ # now open your webbrowser at container ip
-$ # connect you with login:root, password:rootroot
+$ # connect you with login:root, password:orange123
 ```
 ## Author
 [Hervé BERAUD](http://github.com/4383)
