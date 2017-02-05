@@ -34,9 +34,11 @@ def convert_to_json(schema):
 		print(zone['zone'].name)
 		my_json.update({zone['zone'].name: {}})
 		for section in zone['sections']:
-			print(zone['sections']['PXE_0.1'])
-			# variables = [",\n".join([ '{0}: {1}'.format(entry.name, entry.value) for entry in section.entries.all() ])]
-			#my_json[zone.name].update({section.name: variables})
+			variables = {}
+			for section in zone['sections'][section]:
+				for entry in section.entries.all():
+					variables.update({entry.name: entry.value})
+			my_json[zone['zone'].name].update({section.name: variables})
 	return my_json
 
 
@@ -57,4 +59,4 @@ def edit(request, id):
 def download(request, id):
 	data = get_schema(id)
 	output = convert_to_json(data)
-	return render(request, 'schema/download.html', {'output': output})
+	return render(request, 'schema/download.html', {'output': str(output)})
