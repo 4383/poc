@@ -12,11 +12,11 @@ $ # connect you with login:root, password:rootroot
 ```
 
 ### Local installation
-```
+```shell
 $ git clone https://github.com/4383/poc
 $ cd poc
 $ pip install -r requirements.txt
-$ python sources/manage.py makemigrations
+$ python sources/manage.py makemigrations schema
 $ python sources/manage.py migrate
 $ python sources/manage.py loaddata data/db.dump.json
 $ python sources/manage.py runserver
