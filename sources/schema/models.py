@@ -21,18 +21,23 @@ class Global(models.Model):
 
 	def __str__(self):
 		return '%s %s' % (self.name, self.version)
-	
+
+	def get_type(self):
+		return 'global'
+
 
 class UserDefined(models.Model):
 	name = models.CharField(max_length=250)
 	version = models.CharField(max_length=50, default="0.1")
-	section_name = models.CharField(max_length=250)
 	section_name = models.CharField(max_length=250)
 	user = models.ForeignKey(User)
 	entries = models.ManyToManyField(Entry)
 
 	def __str__(self):
 		return '%s %s' % (self.name, self.version)
+
+	def get_type(self):
+		return 'user'
 
 
 class Zone(models.Model):

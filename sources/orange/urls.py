@@ -24,5 +24,6 @@ urlpatterns = [
 	url(r'^/$', schema_views.index),
 	url(r'^/index/$', schema_views.index),
 	url(r'^edit/(?P<id>[0-9]+)/$', schema_views.edit),
+	url(r'^download/(?P<id>[0-9]+)/$', schema_views.download),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
