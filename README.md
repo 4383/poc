@@ -8,7 +8,7 @@ POC download available on [docker hub](https://hub.docker.com/r/4383/poc/)
 $ docker pull 4383/poc
 $ docker run -it --publish 80:8000 4383/poc
 $ # now open your webbrowser at container ip
-$ # connect you with login:root, password:rootroot
+$ # connect you with login:root, password:orange123
 ```
 
 ### Local installation
