@@ -77,7 +77,7 @@
                 <a href="/#overview" class="mdl-layout__tab is-active">Catalogs</a>
                 <a href="/admin/auth/user/{{ request.user.id }}/change/" class="mdl-layout__tab">My Account ({{ request.user.username }})</a>
                 {% if schema %}
-                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add" onClick="MyWindow=window.open('/download/{{ schema.id }}/','Edit',width=600,height=300); return false;">
+                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add" href="/download/{{ schema.id }}/">
                   <i class="material-icons" role="presentation">archive</i>
                   <span class="visuallyhidden">Download</span>
                 </a>
@@ -106,7 +106,7 @@
                                     {% for section in sections %}
                                       {% for entry in section.entries.all %}
                                       <tr>
-                                          <td class="mdl-data-table__cell--non-numeric">{{ entry.name }}</td>
+                                          <td class="mdl-data-table__cell--non-numeric">{{ entry.internal_name }}</td>
                                           <td class="mdl-data-table__cell--non-numeric">{{ entry.value }}</td>
                                           {% if section.get_type == 'user'%}
                                           <td class="mdl-data-table__cell--non-numeric">
@@ -125,12 +125,6 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn3">
-          <i class="material-icons">more_vert</i>
-        </button>
-                    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn3">
-                        <li class="mdl-menu__item">Download</li>
-                    </ul>
                 </section>
                 {% endfor %} {% else %}
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">

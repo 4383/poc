@@ -1,8 +1,8 @@
-import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from schema.models import Warehouse
 from schema.models import Schema
+import schema.converters as converters
 
 
 def ordonate_sections(a, b):
@@ -24,26 +24,16 @@ def get_schema(id):
 	schema = Schema.objects.filter(id=id)[0]
 	data = {'schema': schema, 'zones': []}
 	for zone in schema.zones.all():
-		data['zones'].append({'zone': zone, 'sections': ordonate_sections(zone.global_sections, zone.global_user)})
+		data['zones'].append({
+			'zone': zone,
+			'sections': ordonate_sections(
+				zone.global_sections,
+				zone.global_user
+			)
+		})
 	return data
 
 
-def convert_to_json(schema):
-	my_json = {}
-	for zone in schema['zones']:
-		print(zone['zone'].name)
-		my_json.update({zone['zone'].name: {}})
-		for section in zone['sections']:
-			variables = {}
-			for section in zone['sections'][section]:
-				for entry in section.entries.all():
-					variables.update({entry.name: entry.value})
-			my_json[zone['zone'].name].update({section.name: variables})
-	return my_json
-
-
-
-# Create your views here.
 @login_required(login_url='/admin/login/')
 def index(request):
 	warehouse = Warehouse.objects.filter(user=request.user, active=True)
@@ -58,5 +48,6 @@ def edit(request, id):
 @login_required(login_url='/admin/login/')
 def download(request, id):
 	data = get_schema(id)
-	output = convert_to_json(data)
-	return render(request, 'schema/download.html', {'output': str(output)})
+	json = str(converters.to_json(data)).replace("'",'"')
+	yaml = converters.to_yaml(data)
+	return render(request, 'schema/download.html', {'json': json, 'yaml': yaml})
